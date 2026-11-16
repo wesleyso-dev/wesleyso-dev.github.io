@@ -1,8 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 
-/** Copies text to the clipboard and confirms inline, announced to screen readers. */
+const messages = { idle: '', copied: 'Copied', failed: 'Copy failed' } as const
+
+/**
+ * Copies text to the clipboard and confirms inline. The button keeps a stable
+ * accessible name; the result is announced through a separate status region.
+ */
 export function CopyButton({ text, label = 'Copy' }: { text: string; label?: string }) {
-  const [state, setState] = useState<'idle' | 'copied' | 'failed'>('idle')
+  const [state, setState] = useState<keyof typeof messages>('idle')
   const timer = useRef<number | undefined>(undefined)
 
   useEffect(() => () => window.clearTimeout(timer.current), [])
@@ -19,20 +24,24 @@ export function CopyButton({ text, label = 'Copy' }: { text: string; label?: str
   }
 
   return (
-    <button
-      type="button"
-      onClick={copy}
-      className="label inline-flex min-h-11 items-center gap-2 text-muted transition-colors hover:text-ink"
-    >
-      <span
-        className={`size-1.5 rounded-full transition-colors duration-300 ${
-          state === 'copied' ? 'bg-cobalt' : state === 'failed' ? 'bg-ink' : 'bg-rule'
-        }`}
-        aria-hidden="true"
-      />
-      <span aria-live="polite">
-        {state === 'copied' ? 'Copied' : state === 'failed' ? 'Copy failed' : label}
+    <>
+      <button
+        type="button"
+        onClick={copy}
+        aria-label={label}
+        className="label inline-flex min-h-11 items-center gap-2 text-muted transition-colors hover:text-ink"
+      >
+        <span
+          className={`size-1.5 rounded-full transition-colors duration-300 ${
+            state === 'copied' ? 'bg-cobalt' : state === 'failed' ? 'bg-ink' : 'bg-rule'
+          }`}
+          aria-hidden="true"
+        />
+        <span aria-hidden="true">{messages[state] || label}</span>
+      </button>
+      <span role="status" className="sr-only">
+        {messages[state]}
       </span>
-    </button>
+    </>
   )
 }
