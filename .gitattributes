@@ -1,0 +1,9 @@
+# Store text with LF in the repo and check it out with LF on every OS,
+# so Windows and the Linux CI runner see identical files.
+* text=auto eol=lf
+
+# Binary assets: never touch line endings or diff them as text.
+*.pdf binary
+*.png binary
+*.webp binary
+*.woff2 binary
