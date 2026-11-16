@@ -1,13 +1,22 @@
 # wesleyso-dev.github.io
 
-Personal portfolio. React 19, TypeScript, Vite, Tailwind CSS v4, React Router.
+Personal portfolio of Wesley So, live at **[wesleyso-dev.github.io](https://wesleyso-dev.github.io)**.
+React 19, TypeScript, Vite, Tailwind CSS v4, React Router.
 
 ```sh
+nvm use           # Node 24, from .nvmrc
 npm install
 npm run dev       # local dev server
-npm run build     # type-check + production build (also writes dist/404.html for GitHub Pages deep links)
+npm run typecheck
 npm run lint
+npm run build     # type-check + production build (also writes dist/404.html for GitHub Pages deep links)
 ```
+
+## Deployment
+
+Every push to `main` runs [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml): install, lint, build,
+then publish `dist/` to GitHub Pages. Pages must be set to **Settings → Pages → Source: GitHub Actions** (one-time).
+Dependabot opens grouped update PRs monthly.
 
 ## Writing content
 
