@@ -1,0 +1,248 @@
+@import '@fontsource-variable/instrument-sans/wght.css';
+@import '@fontsource-variable/newsreader/wght.css';
+@import '@fontsource-variable/newsreader/wght-italic.css';
+@import '@fontsource/ibm-plex-mono/latin-400.css';
+@import '@fontsource/ibm-plex-mono/latin-500.css';
+@import 'tailwindcss';
+
+/* ==========================================================================
+   Design tokens
+   One source of truth. Tailwind utilities are generated from these
+   (bg-paper, text-ink, font-serif, text-display, ...).
+   ========================================================================== */
+
+@theme {
+  /* Reset Tailwind's default palette: only these colours exist on this site. */
+  --color-*: initial;
+
+  --color-paper: #f4f0e8; /* page background, warm off-white */
+  --color-plate: #ebe6da; /* recessed surfaces: project plates, portrait */
+  --color-ink: #191714; /* primary text, 15.7:1 on paper */
+  --color-muted: #5f5a50; /* secondary text, 6.0:1 on paper */
+  --color-faint: #8a8478; /* large numerals and decoration only, 3.3:1 */
+  --color-rule: #d8d1c3; /* hairlines */
+  --color-cobalt: #1f3fcc; /* the single accent, 7.0:1 on paper */
+  --color-cobalt-deep: #162fa0; /* accent hover/pressed */
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --font-sans: 'Instrument Sans Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: 'Newsreader Variable', ui-serif, Georgia, serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, 'SFMono-Regular', monospace;
+
+  /* Type scale: fluid between 375px and 1440px viewports. */
+  --text-label: 0.75rem; /* mono metadata, uppercase */
+  --text-label--letter-spacing: 0.06em;
+  --text-label--line-height: 1.4;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+  --text-body: 1.0625rem;
+  --text-body--line-height: 1.6;
+  --text-lead: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+  --text-lead--line-height: 1.4;
+  --text-title: clamp(1.75rem, 1.4rem + 1.5vw, 2.75rem);
+  --text-title--line-height: 1.05;
+  --text-title--letter-spacing: -0.025em;
+  --text-headline: clamp(2.5rem, 1.6rem + 3.9vw, 5.25rem);
+  --text-headline--line-height: 1;
+  --text-headline--letter-spacing: -0.035em;
+  --text-display: clamp(2.875rem, 1.5rem + 6vw, 7.25rem);
+  --text-display--line-height: 0.96;
+  --text-display--letter-spacing: -0.042em;
+
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --animate-rise: rise 900ms var(--ease-out-quart) both;
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      transform: translateY(0.5em);
+    }
+  }
+}
+
+/* ==========================================================================
+   Base
+   ========================================================================== */
+
+@layer base {
+  :root {
+    --header-height: 4rem;
+    --gutter: 1rem;
+    color-scheme: light;
+  }
+
+  @media (min-width: 48rem) {
+    :root {
+      --gutter: 2.5rem;
+    }
+  }
+
+  html {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'ss01', 'cv11';
+    scroll-padding-top: calc(var(--header-height) + 1.5rem);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--color-paper);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  ::selection {
+    background-color: var(--color-cobalt);
+    color: var(--color-paper);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-cobalt);
+    outline-offset: 3px;
+    border-radius: 1px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* ==========================================================================
+   Components. Patterns too fiddly to express as utility strings.
+   ========================================================================== */
+
+@layer components {
+  /* The site grid: 4 columns on mobile, 12 from md up. */
+  .grid-site {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--gutter);
+    padding-inline: var(--gutter);
+    margin-inline: auto;
+    max-width: 90rem;
+    width: 100%;
+  }
+
+  @media (min-width: 48rem) {
+    .grid-site {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+  }
+
+  /* Mono metadata label. */
+  .label {
+    font-family: var(--font-mono);
+    font-size: var(--text-label);
+    letter-spacing: var(--text-label--letter-spacing);
+    line-height: var(--text-label--line-height);
+    text-transform: uppercase;
+  }
+
+  /* Underline that draws in from the left on hover. */
+  .link-draw {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1px;
+    padding-bottom: 0.08em;
+    transition: background-size 400ms var(--ease-out-quart);
+  }
+
+  .link-draw:hover,
+  .link-draw:focus-visible,
+  .group:hover .link-draw,
+  .group:focus-visible .link-draw {
+    background-size: 100% 1px;
+  }
+
+  /* Underline that is always present and retracts on hover (inline prose links). */
+  .link-prose {
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    text-decoration-color: color-mix(in oklab, currentColor 35%, transparent);
+    transition: text-decoration-color 200ms ease;
+  }
+
+  .link-prose:hover {
+    text-decoration-color: currentColor;
+  }
+}
+
+/* ==========================================================================
+   Motion
+   ========================================================================== */
+
+/* Staggered intro, opt-in per element with style="--i: n". */
+@media (prefers-reduced-motion: no-preference) {
+  .intro {
+    animation: var(--animate-rise);
+    animation-delay: calc(var(--i, 0) * 90ms + 80ms);
+  }
+}
+
+/* Page transitions (View Transitions API, progressive enhancement). */
+::view-transition-old(root) {
+  animation: 220ms var(--ease-in-out-quart) both vt-fade-out;
+}
+
+::view-transition-new(root) {
+  animation: 420ms var(--ease-out-quart) 80ms both vt-fade-in;
+}
+
+::view-transition-group(*) {
+  animation-duration: 520ms;
+  animation-timing-function: var(--ease-in-out-quart);
+}
+
+@keyframes vt-fade-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes vt-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+
+  /* 0s, not 0.01ms: a non-zero duration makes every element (default
+     transition-property: all) briefly transition inherited `visibility`,
+     which blocks programmatic focus into just-opened UI. */
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0s !important;
+    animation-duration: 0s !important;
+  }
+}

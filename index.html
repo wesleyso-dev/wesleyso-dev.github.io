@@ -2,11 +2,49 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wesley So · Portfolio</title>
+    <meta
+      name="description"
+      content="Wesley So is a software engineer and UC Berkeley Data Science student. Founder of Brassflows, contract software engineer at Yahoo. Selected work and engineering case studies."
+    />
+    <link rel="canonical" href="https://wesleyso-dev.github.io/" />
+    <meta name="theme-color" content="#f4f0e8" />
+    <meta name="color-scheme" content="light" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>wesleyso-dev.github.io</title>
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Wesley So" />
+    <meta property="og:title" content="Wesley So · Portfolio" />
+    <meta
+      property="og:description"
+      content="Wesley So is a software engineer and UC Berkeley Data Science student. Founder of Brassflows, contract software engineer at Yahoo. Selected work and engineering case studies."
+    />
+    <meta property="og:url" content="https://wesleyso-dev.github.io/" />
+    <!-- TODO: add a 1200×630 social card at public/og.png, then uncomment:
+    <meta property="og:image" content="https://wesleyso-dev.github.io/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    -->
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Wesley So",
+        "url": "https://wesleyso-dev.github.io/",
+        "jobTitle": "Software Engineer",
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "University of California, Berkeley" },
+        "sameAs": ["https://github.com/wesleyso-dev", "https://www.linkedin.com/in/wesley-so/"]
+      }
+    </script>
   </head>
   <body>
+    <noscript>
+      <p style="font-family: system-ui, sans-serif; padding: 2rem">
+        This portfolio needs JavaScript to run. The source is on
+        <a href="https://github.com/wesleyso-dev">GitHub</a>.
+      </p>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

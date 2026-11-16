@@ -1,75 +1,64 @@
-# React + TypeScript + Vite
+# wesleyso-dev.github.io
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio. React 19, TypeScript, Vite, Tailwind CSS v4, React Router.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```sh
+npm install
+npm run dev       # local dev server
+npm run build     # type-check + production build (also writes dist/404.html for GitHub Pages deep links)
+npm run lint
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Writing content
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+All copy lives in [`src/content/`](src/content/). Anything not yet written is a `tbd('…')`
+placeholder, which renders on the page as a dashed **TBD** slot so it can't ship unnoticed.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```sh
+grep -rn "tbd(" src/content     # everything still to write
+```
 
+- `site.ts`: name, role, hero facts, links, About, experience, skills
+- `projects.ts`: project cards and case studies (overview, problem, decisions + trade-offs, challenges, outcome, learnings)
+
+Links use `Href`: a URL, a `tbd()` placeholder (rendered as an inert "coming soon" label), or `null` for
+"intentionally absent" (e.g. a private repo shows "Private repository").
+
+## Design system
+
+Editorial minimalism with a Swiss-modernist grid. Tokens are defined once in
+[`src/styles/index.css`](src/styles/index.css) (`@theme`) and exposed as Tailwind utilities.
+
+| Token | Value | Use |
+| --- | --- | --- |
+| `paper` | `#f4f0e8` | Page background |
+| `plate` | `#ebe6da` | Recessed surfaces (project plates, portrait) |
+| `ink` | `#191714` | Text, 15.7:1 on paper |
+| `muted` | `#5f5a50` | Secondary text, 6.0:1 |
+| `faint` | `#8a8478` | Decoration and large numerals only, 3.3:1 |
+| `rule` | `#d8d1c3` | Hairlines |
+| `cobalt` | `#1f3fcc` | The single accent, 7.0:1 (AA at any size) |
+
+**Type.** Instrument Sans (UI, headlines), Newsreader italic (editorial accent), IBM Plex Mono (metadata labels).
+Fluid scale: `label`, `small`, `body`, `lead`, `title`, `headline`, `display`. Fonts are self-hosted.
+
+**Grid.** `.grid-site`: 4 columns on mobile, 12 from 768px, max width 90rem. Sections open with a hairline,
+a mono index number in the margin, and a headline from column 4.
+
+**Motion.** Hero intro stagger, hover underlines and arrow nudges, a mobile menu fade, and page transitions via
+the View Transitions API (project plates morph between card and case study). All motion is disabled under
+`prefers-reduced-motion`.
+
+## Structure
+
+```
+src/
+  content/        copy and data (the only files you edit for content)
+  styles/         tokens + base styles
+  components/
+    layout/       RootLayout, SiteHeader, MobileMenu, SiteFooter, nav config
+    ui/           Text, ExternalLink, Arrow, SectionHeading, ProjectPlate, CopyButton
+  sections/       homepage sections
+  pages/          HomePage, CaseStudyPage, NotFoundPage
+  hooks/          usePageMeta, useScrolled
 ```
