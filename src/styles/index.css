@@ -246,3 +246,35 @@
     animation-duration: 0s !important;
   }
 }
+
+/* ==========================================================================
+   Print: a clean, paper-friendly page with link destinations spelled out.
+   ========================================================================== */
+
+@media print {
+  #top > header,
+  #mobile-menu,
+  a[href='#main'],
+  a[href='#top'] {
+    display: none !important;
+  }
+
+  html,
+  body {
+    background: #fff;
+  }
+
+  article,
+  figure,
+  li {
+    break-inside: avoid;
+  }
+
+  a[data-external][href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-family: var(--font-mono);
+    font-size: 0.75em;
+    color: var(--color-muted);
+    word-break: break-all;
+  }
+}

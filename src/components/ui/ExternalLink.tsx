@@ -32,6 +32,7 @@ export function ExternalLink({ href, children, className = '', newTab = false }:
   return (
     <a
       href={href}
+      data-external
       className={className}
       {...(newTab ? { target: '_blank', rel: 'noreferrer' } : {})}
     >
