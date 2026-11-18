@@ -172,7 +172,8 @@
   .link-draw:hover,
   .link-draw:focus-visible,
   .group:hover .link-draw,
-  .group:focus-visible .link-draw {
+  .group:focus-visible .link-draw,
+  [aria-current] .link-draw {
     background-size: 100% 1px;
   }
 

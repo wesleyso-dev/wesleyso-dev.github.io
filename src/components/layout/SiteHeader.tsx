@@ -1,9 +1,12 @@
-import { Link } from 'react-router'
+import { Link, useLocation } from 'react-router'
 import { links, site } from '../../content/site'
+import { useActiveSection } from '../../hooks/useActiveSection'
 import { useScrolled } from '../../hooks/useScrolled'
 import { Arrow } from '../ui/Arrow'
 import { ExternalLink } from '../ui/ExternalLink'
 import { navItems, sectionHref } from './nav'
+
+const sectionIds = navItems.map((item) => item.id)
 
 type Props = {
   menuOpen: boolean
@@ -13,6 +16,8 @@ type Props = {
 export function SiteHeader({ menuOpen, onToggleMenu }: Props) {
   const scrolled = useScrolled()
   const raised = scrolled || menuOpen
+  const { pathname } = useLocation()
+  const active = useActiveSection(sectionIds, pathname === '/')
 
   return (
     <header
@@ -36,16 +41,27 @@ export function SiteHeader({ menuOpen, onToggleMenu }: Props) {
 
         <nav aria-label="Primary" className="col-span-7 col-start-4 hidden md:block">
           <ul className="flex gap-8">
-            {navItems.map((item) => (
-              <li key={item.id}>
-                <Link to={sectionHref(item.id)} className="group flex items-baseline gap-1.5 text-small">
-                  <span className="label text-[0.625rem] text-muted transition-colors group-hover:text-cobalt">
-                    {item.number}
-                  </span>
-                  <span className="link-draw">{item.label}</span>
-                </Link>
-              </li>
-            ))}
+            {navItems.map((item) => {
+              const current = item.id === active
+              return (
+                <li key={item.id}>
+                  <Link
+                    to={sectionHref(item.id)}
+                    aria-current={current ? 'location' : undefined}
+                    className="group flex items-baseline gap-1.5 text-small"
+                  >
+                    <span
+                      className={`label text-[0.625rem] transition-colors group-hover:text-cobalt ${
+                        current ? 'text-cobalt' : 'text-muted'
+                      }`}
+                    >
+                      {item.number}
+                    </span>
+                    <span className="link-draw">{item.label}</span>
+                  </Link>
+                </li>
+              )
+            })}
           </ul>
         </nav>
 
