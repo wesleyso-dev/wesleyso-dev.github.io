@@ -159,4 +159,8 @@ export const projects: Project[] = allProjects.filter((p) => import.meta.env.DEV
 
 export const getProject = (slug: string | undefined) => projects.find((p) => p.slug === slug)
 
-export const projectNumber = (project: Project) => String(projects.indexOf(project) + 1).padStart(2, '0')
+/** Zero-based position in display order. */
+export const projectIndex = (project: Project) => projects.indexOf(project)
+
+/** Display number, e.g. "01". */
+export const projectNumber = (project: Project) => String(projectIndex(project) + 1).padStart(2, '0')

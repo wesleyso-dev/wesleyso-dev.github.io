@@ -1,4 +1,4 @@
-import { projectNumber, type Project } from '../../content/projects'
+import { projectIndex, projectNumber, type Project } from '../../content/projects'
 
 /**
  * Typographic cover for a project: a Swiss-poster plate with the name set
@@ -29,7 +29,7 @@ const aspectClass = {
 }
 
 export function ProjectPlate({ project, aspect = 'landscape', className = '' }: Props) {
-  const index = Math.max(0, Number(projectNumber(project)) - 1)
+  const index = Math.max(0, projectIndex(project))
 
   return (
     <div
