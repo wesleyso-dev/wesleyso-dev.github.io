@@ -33,11 +33,14 @@ export function MobileMenu({ open, onClose }: Props) {
     const onResize = () => desktop.matches && onClose()
 
     window.addEventListener('keydown', onKey)
+    // Browser back/forward while open: close, or the page stays inert behind it.
+    window.addEventListener('popstate', onClose)
     desktop.addEventListener('change', onResize)
     return () => {
       cancelAnimationFrame(frame)
       root.style.overflow = previousOverflow
       window.removeEventListener('keydown', onKey)
+      window.removeEventListener('popstate', onClose)
       desktop.removeEventListener('change', onResize)
     }
   }, [open, onClose])
