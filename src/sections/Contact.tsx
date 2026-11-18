@@ -6,9 +6,9 @@ import { Text } from '../components/ui/Text'
 import { isPlaceholder, type Href } from '../content/copy'
 import { links } from '../content/site'
 
-const channels: { label: string; detail: string; href: Href; newTab?: boolean }[] = [
-  { label: 'GitHub', detail: 'Code & experiments', href: links.github },
-  { label: 'LinkedIn', detail: 'Work history', href: links.linkedin },
+const channels: { label: string; detail: string; href: Href; newTab?: boolean; me?: boolean }[] = [
+  { label: 'GitHub', detail: 'Code & experiments', href: links.github, me: true },
+  { label: 'LinkedIn', detail: 'Work history', href: links.linkedin, me: true },
   { label: 'Résumé', detail: 'PDF', href: links.resume, newTab: true },
 ]
 
@@ -44,6 +44,7 @@ export function Contact() {
               <ExternalLink
                 href={channel.href}
                 newTab={channel.newTab}
+                me={channel.me}
                 className="group flex min-h-14 items-center gap-4 py-3"
               >
                 <span className="flex-1 font-medium transition-colors group-hover:text-cobalt">{channel.label}</span>

@@ -7,13 +7,15 @@ type Props = {
   className?: string
   /** Open in a new tab. Use for documents (résumé) rather than profiles. */
   newTab?: boolean
+  /** Mark as one of your own profiles (rel="me"), linking identities across sites. */
+  me?: boolean
 }
 
 /**
  * A link whose destination may not exist yet. A placeholder href renders an
  * inert, visibly-marked label instead of a dead link. `null` renders nothing.
  */
-export function ExternalLink({ href, children, className = '', newTab = false }: Props) {
+export function ExternalLink({ href, children, className = '', newTab = false, me = false }: Props) {
   if (href === null) return null
 
   if (isPlaceholder(href)) {
@@ -29,13 +31,10 @@ export function ExternalLink({ href, children, className = '', newTab = false }:
     )
   }
 
+  const rel = [me && 'me', newTab && 'noreferrer'].filter(Boolean).join(' ') || undefined
+
   return (
-    <a
-      href={href}
-      data-external
-      className={className}
-      {...(newTab ? { target: '_blank', rel: 'noreferrer' } : {})}
-    >
+    <a href={href} data-external className={className} rel={rel} target={newTab ? '_blank' : undefined}>
       {children}
       {newTab && <span className="sr-only"> (opens in a new tab)</span>}
     </a>
