@@ -1,6 +1,8 @@
 import { site } from '../../content/site'
 import { Arrow } from '../ui/Arrow'
 
+const sourceUrl = 'https://github.com/wesleyso-dev/wesleyso-dev.github.io'
+
 export function SiteFooter() {
   const year = new Date().getFullYear()
 
@@ -12,7 +14,10 @@ export function SiteFooter() {
         </p>
         <p className="col-span-full normal-case tracking-normal md:col-span-6">
           Designed and built with React, TypeScript and Tailwind CSS. Set in Instrument Sans, Newsreader and IBM Plex
-          Mono.
+          Mono.{' '}
+          <a href={sourceUrl} data-external className="link-prose whitespace-nowrap text-ink">
+            View source
+          </a>
         </p>
         <p className="col-span-full md:col-span-3 md:justify-self-end">
           <a href="#top" className="group inline-flex items-center gap-1.5 hover:text-ink">
