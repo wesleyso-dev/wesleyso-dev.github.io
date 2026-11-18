@@ -3,7 +3,7 @@ import { Arrow } from '../components/ui/Arrow'
 import { usePageMeta } from '../hooks/usePageMeta'
 
 export function NotFoundPage() {
-  usePageMeta({ title: 'Page not found', path: '/404' })
+  usePageMeta({ title: 'Page not found', path: '/404', noindex: true })
 
   return (
     <section className="grid-site min-h-[60vh] content-center pt-16">
