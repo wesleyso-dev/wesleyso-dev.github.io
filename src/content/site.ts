@@ -32,7 +32,7 @@ export const about = {
     tbd('In your own words: how you got into software, or what you care about in your work. A specific moment beats a summary.'),
   ] satisfies Copy[],
   /** Short, human details. Keep each to a few words. */
-  outside: [tbd('Interest'), tbd('Interest'), tbd('Interest')] satisfies Copy[],
+  outside: ['The gym', 'Poker', 'Reading'] satisfies Copy[],
 }
 
 export type Role = {
@@ -80,7 +80,12 @@ export type Credential = { kind: string; title: string; detail: Copy }
 
 export const credentials: Credential[] = [
   { kind: 'Education', title: 'University of California, Berkeley', detail: 'B.A. Data Science · Expected May 2028' },
-  { kind: 'Recognition', title: '2nd place, Berkeley × DeepMind Hackathon', detail: tbd('Year, and one line on what you built') },
+  {
+    kind: 'Recognition',
+    title: '2nd place, Berkeley × DeepMind Hackathon',
+    detail:
+      '2026 · Team project: Dose, a web app that scans medicine bottles and builds a dosing schedule to prevent double dosing.',
+  },
   { kind: 'Certification', title: 'CompTIA A+', detail: 'Hardware, operating systems, networking, security and IT support' },
 ]
 
