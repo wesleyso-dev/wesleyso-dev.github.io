@@ -62,7 +62,12 @@ const allProjects: Project[] = [
         'Custom single sign-on (SSO) flows and real-time student performance analytics for schools, so teachers can fold Brassflows into their music curriculum.',
       ],
       decisions: [
-        { title: 'Keyboard input as the instrument', rationale: why(), tradeoff: cost() },
+        {
+          title: 'Keyboard input as the instrument',
+          rationale:
+            'It makes practice accessible: anyone with a computer can drill fingerings whenever and wherever they are, without needing a trumpet in hand.',
+          tradeoff: cost(),
+        },
         { title: 'PostgreSQL as the system of record', rationale: why(), tradeoff: cost() },
         { title: 'Custom SSO for institutional licences', rationale: why(), tradeoff: cost() },
       ],

@@ -1,4 +1,4 @@
-import { tbd, type Copy, type Href } from './copy'
+import type { Copy, Href } from './copy'
 
 export const site = {
   name: 'Wesley So',
@@ -25,11 +25,10 @@ export const links = {
 }
 
 export const about = {
-  lead: 'I’m a Data Science student at UC Berkeley who likes owning software end to end: the interface someone practises on every day, and the database, onboarding and authentication behind it.' as Copy,
+  lead: 'I got into software after discovering the thrill of competitive programming. Now I’m a Data Science student at UC Berkeley, building products people use every day and tools that go deep on fundamentals.' as Copy,
   body: [
-    'Most of that has happened through Brassflows, a trumpet-practice platform I founded and still run. It taught me that shipping is the start of the work: real users, schools with their own sign-in systems, and paying subscribers who notice every rough edge. Alongside it, I build smaller tools to go deep on fundamentals, like a system-diagnostics CLI in Python and an encrypted secrets vault in Go.',
-    'Before Berkeley, I was president of both the Computer Science Club and the Cybersecurity Club in Arcadia, CA, mentoring students in data structures and algorithms and running weekly workshops on network security.',
-    tbd('In your own words: how you got into software, or what you care about in your work. A specific moment beats a summary.'),
+    'The biggest of those is Brassflows, a trumpet-practice platform I founded and still run, used by 33,000+ musicians and 35+ schools across 15 countries. Alongside it, I build smaller tools, like a system-diagnostics CLI in Python and an encrypted secrets vault in Go.',
+    'Before Berkeley, I was president of the Computer Science Club, mentoring 30+ students in data structures and algorithms for programming contests, and of the Cybersecurity Club, running weekly workshops on network security.',
   ] satisfies Copy[],
   /** Short, human details. Keep each to a few words. */
   outside: ['The gym', 'Poker', 'Reading'] satisfies Copy[],
